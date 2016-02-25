@@ -4,6 +4,8 @@ brew tap caskroom/cask
 
 echo 'Setting up Git'
 brew install git
+ln -s "$HOME/dotfiles/git/gitignore.symlink" "$HOME/.gitignore"
+ln -s "$HOME/dotfiles/git/gitconfig.symlink" "$HOME/.gitconfig"
 
 echo 'Setting up bash'
 ln -s "$HOME/dotfiles/bash/bash_profile.symlink" "$HOME/.bash_profile"

@@ -1,0 +1,28 @@
+[user]
+  name = Paul Navasard
+  email = paul.navasard@domo.com
+[alias]
+  st = status -s
+  co = checkout
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset% %C(magenta)% an%Creset' --abbrev-commit --date=relative
+  com = checkout master
+  up = stash && pull --rebase && stash apply
+  fuckit = reset --hard
+  au = add -u
+  cm = commit -m
+[color]
+  ui = true 
+[push]
+  default = current
+[core]
+  excludesfile = /Users/paulnavasard/.gitignore
+[diff]
+    tool = vimdiff
+    renames = copies
+[difftool]
+  prompt = false
+[merge]
+    tool = vimdiff
+    state = true
+[mergetool]
+  prompt = false
