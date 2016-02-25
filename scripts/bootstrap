@@ -18,6 +18,10 @@ echo 'Setting up Vim'
 ln -s "$HOME/dotfiles/vim/vimrc.symlink" "$HOME/.vimrc"
 ./vim/install.sh
 
+echo 'Setting up search'
+ln -s "$HOME/dotfiles/search/ackrc.symlink" "$HOME/.ackrc"
+ln -s "$HOME/dotfiles/search/agignore.symlink" "$HOME/.agignore"
+
 echo 'Setting up ruby'
 ./ruby/install.sh
 
