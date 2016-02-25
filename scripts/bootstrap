@@ -1,9 +1,4 @@
-echo 'Installing Brew'
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew tap caskroom/cask
-
 echo 'Setting up Git'
-brew install git
 ln -s "$HOME/dotfiles/git/gitignore.symlink" "$HOME/.gitignore"
 ln -s "$HOME/dotfiles/git/gitconfig.symlink" "$HOME/.gitconfig"
 
@@ -25,12 +20,13 @@ echo 'Installing iterm'
 #brew cask install iterm2-beta
 
 echo 'Installing Atom'
+#brew cask install Atom
 
-echo 'Chrome'
+echo 'Installing Chrome'
 #brew cask install google-chrome
 
-echo 'Firefox'
+echo 'Installing Firefox'
 #brew cask install firefox
 
-echo 'Sketch'
+echo 'Installing Sketch'
 #brew cask install sketch
