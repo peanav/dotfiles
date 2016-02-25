@@ -1,11 +1,16 @@
+#PATH Stuff
 PATH=$(getconf PATH) 
 PATH="$PATH:/usr/local/bin"
 PATH="$PATH:$HOME/.rbenv/bin"
 PATH="$PATH:./vendor/bundle/bin"
 
+#rbenv
 if which rbenv > /dev/null;
   then eval "$(rbenv init -)";
 fi
+
+#vi mode
+set -o vi
 
 source /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
 
