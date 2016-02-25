@@ -1,0 +1,100 @@
+# Make ESC work right
+set -sg escape-time 0
+
+# Make the colors work right
+set -g default-terminal "screen-256color"
+
+# set window and pane index to 1 (0 by default)
+set-option -g base-index 1
+setw -g pane-base-index 1
+
+#no more Ctrl-b
+unbind-key C-b
+
+# Switch me to ^f, thanks
+set-option -g prefix C-f
+bind-key f send-prefix
+
+# Source the config file
+bind-key -n M-s source-file ~/.tmux.conf\; display-message "source-file done"
+
+# Window Management
+bind-key -n M-Right next-window
+bind-key -n M-Left previous-window
+bind-key -n M-n new-window -c '#{pane_current_path}'
+bind-key -n M-Q kill-window
+
+# Creating new panes
+bind-key -n M-- split-window -v -c '#{pane_current_path}'
+bind-key -n M-= split-window -h -c '#{pane_current_path}'
+
+# Moving around panes
+bind-key -n M-j select-pane -D
+bind-key -n M-h select-pane -L
+bind-key -n M-k select-pane -U
+bind-key -n M-l select-pane -R
+bind-key -n M-q kill-pane
+
+# Resizing Panes
+bind-key -n M-H resize-pane -L 5
+bind-key -n M-J resize-pane -D 5
+bind-key -n M-K resize-pane -U 5
+bind-key -n M-L resize-pane -R 5
+
+# Pane Colors
+set -g pane-border-bg "#222222"
+set -g pane-border-fg "#999999"
+set -g pane-active-border-bg "#222222"
+set -g pane-active-border-fg "#cccccc"
+
+# Use VI bindings for window mode keys
+set-window-option -g mode-keys vi
+
+# Clock Stuff
+bind-key -n M-t clock-mode
+set-window-option -g clock-mode-style 12 #12 Hour Clock
+set-window-option -g clock-mode-colour "#999999"
+
+# Zoom Commands
+bind-key -n M-z resize-pane -Z
+
+# Copy Commands
+bind-key -n M-y copy-mode
+
+# Setup 'v' to begin selection as in Vim
+bind-key -t vi-copy v begin-selection
+bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+
+# Update default binding of `Enter` to also use copy-pipe
+unbind -t vi-copy Enter
+bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+
+# General Status Bar
+set-option -g status-position top
+set -g status-justify centre
+set -g status-bg "#555555"
+set -g status-fg "#bbbbbb"
+
+# Left/Right Status Bar Text
+set -g status-left-length 60
+set -g status-left " #h : #S "
+set -g status-right " %A, %B %e %Y - %I:%M %p "
+
+# Status Bar Window Styles
+set-window-option -g window-status-format " #I: #W "
+set-window-option -g window-status-current-format " #I: #W "
+set-window-option -g window-status-current-fg green
+set-window-option -g window-status-current-bg "#333333"
+
+# Clear
+bind-key -n M-c send-keys -t "$pane" "clear" Enter
+
+# Plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @resurrect-strategy-vim 'session'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @continuum-restore 'on'
+
+run '~/.tmux/plugins/tpm/tpm'
+run-shell ~/clone/path/resurrect.tmux

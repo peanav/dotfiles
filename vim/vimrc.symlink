@@ -1,0 +1,223 @@
+set nocompatible  " We don't want vi compatibility.
+filetype on
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle
+" required!
+Plugin 'VundleVim/Vundle.vim'
+
+" original repos on github
+Plugin 'tpope/vim-markdown.git',
+"Plugin 'tsaleh/vim-align.git',
+Plugin 'vim-ruby/vim-ruby.git',
+"Plugin 'mileszs/ack.vim.git',
+Plugin 'scrooloose/nerdcommenter.git',
+Plugin 'kchmck/vim-coffee-script.git',
+Plugin 'kien/ctrlp.vim.git',
+Plugin 'groenewege/vim-less.git',
+Plugin 'slim-template/vim-slim.git',
+Plugin 'juvenn/mustache.vim.git',
+Plugin 'tobym/vim-play.git',
+Plugin 'vim-scripts/python.vim--Vasiliev.git'
+Plugin 'jelera/vim-javascript-syntax.git'
+Plugin 'mattn/zencoding-vim.git'
+Plugin 'tpope/vim-fugitive.git'
+Plugin 'tpope/vim-surround.git'
+Plugin 'vim-scripts/ZoomWin'
+Plugin 'rking/ag.vim.git'
+Plugin 'mxw/vim-jsx'
+Plugin 'pangloss/vim-javascript'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'chriskempson/base16-vim'
+Plugin 'tpope/vim-vinegar.git'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'jscappini/material.vim'
+Plugin 'tpope/vim-obsession.git'
+
+call vundle#end()
+
+filetype plugin indent on
+
+set t_Co=256
+syntax enable
+colorscheme zenburn
+
+" Set the General UI Colors/Look
+set backupdir=/tmp directory=/tmp undodir=/tmp
+set fillchars+=vert:\ 
+hi VertSplit guifg=#111111 guibg=#111111 gui=none
+
+" Set the leader to space
+let mapleader=" "
+
+" Tab Movement
+nnoremap th :tabfirst<CR>
+nnoremap tj :tabprev<CR>
+nnoremap tk :tabnext<CR>
+nnoremap tl :tablast<CR>
+nnoremap tt :tabedit<Space>
+nnoremap tn :tabnext<CR>
+nnoremap tm :tabm<Space>
+
+" Buffer Movement
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Buffer Resize
+nnoremap <Right> :vertical resize -5<CR>
+nnoremap <Up> :res-5<CR>
+nnoremap <Down> :res+5<CR>
+nnoremap <Left> :vertical resize +5<CR>
+
+nnoremap <Leader>/ :noh<CR> " Remove Highlighting
+nnoremap <Leader>q :q<CR> " Fast Quit
+nnoremap <leader><leader> :w <CR> " Fast Write
+nnoremap <leader>s :call <SID>fastSource()<CR><CR> " Fast Source
+
+if !exists('*<SID>fastSource')
+  func! <SID>fastSource()
+    silent :source ~/.vimrc
+    silent :filetype detect
+  endfunc
+endif
+
+nnoremap <Leader>rt :!ctags --extra=+f -R *<CR><CR>
+nnoremap <Leader>m :make<CR><CR><CR>:cw<CR>
+nnoremap <Leader>v :vertical resize +10<CR>
+nnoremap <Leader>r :resize +10<CR>
+
+syntax enable
+
+set mouse=a " Enable mouse support for pussy mode
+set cf  " Enable error files & error jumping.
+set clipboard+=unnamed  " Yanks go on clipboard instead.
+set history=256  " Number of things to remember in history.
+set autowrite  " Writes on make/shell commands
+set ruler  " Ruler on
+set nu  " Line numbers on
+set nowrap  " Line wrapping off
+set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
+set encoding=utf-8
+"  
+"  " Formatting (some of these are for coding in C and C++)
+set ts=2  " Tabs are 2 spaces
+set bs=2  " Backspace over everything in insert mode
+set shiftwidth=2  " Tabs under smart indent
+set nocp incsearch
+set hlsearch
+set cinoptions=:0,p0,t0
+set cinwords=if,else,while,do,for,switch,case
+set formatoptions=tcqr
+set cindent
+set autoindent
+set smarttab
+set expandtab
+
+
+"   " Visual
+set showmatch  " Show matching brackets.
+set mat=5  " Bracket blinking.
+set list
+set lcs=tab:>.,trail:.,extends:#,nbsp:.
+set novisualbell  " No blinking .
+set noerrorbells  " No noise.
+set laststatus=2  " Always show status line.
+
+set pastetoggle=<F2> 
+
+"   "  Keep Ecs Snappy
+set notimeout
+set ttimeout
+set ttimeoutlen=0
+
+au Bufenter *.hs compiler ghc
+let g:haddock_browser = "w3m"
+
+:set tags+=ftags
+nmap ,f :FufTag<CR>
+
+if has('gui_running')
+ set guioptions -=m
+ set guioptions -=T
+ set guioptions -=r
+ set guioptions -=L
+ set guifont=Monaco:h12
+ set transparency=5
+endif
+
+au BufRead,BufNewFile *.jade setfiletype jade
+au BufRead,BufNewFile *.less setfiletype less
+au BufRead,BufNewFile *.ng setfiletype mustache
+
+"Ctrl P
+set wildignore +=*/.git/*
+set wildignore +=*.ipc
+set wildignore +=*.swp
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  'vendor\/\|public/javascripts-built\/\|playframework\/\|tmp\/\|node_modules\/\|stylesheets\/'
+  \ }
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20'
+
+"Javascript Lib Syntax
+"let g:used_javascript_libs = 'underscore,angular,jquery'
+
+" Open netrw if editing a directory
+autocmd vimenter * if !argc() | :e. | endif
+
+
+" Spell Check
+nnoremap <silent> <F4> :set spell! <CR>
+set spelllang=en_us nospell
+
+nnoremap <leader>df :!git difftool <CR><CR>
+
+highlight DiffAdd ctermbg=8
+highlight DiffDelete ctermbg=8 ctermfg=1
+highlight DiffChange ctermbg=8 cterm=none
+highlight DiffText ctermbg=12 ctermfg=0 cterm=none
+highlight LineNr ctermfg=8 ctermbg=0
+
+
+" No more .swp file warnings!
+augroup NoSimultaneousEdits
+  autocmd!
+  autocmd  SwapExists * :let v:swapchoice = 'e'
+augroup END
+
+"I never really care about using readonly
+set noreadonly
+
+ if !exists("g:MySmartQuitDefined")
+  func! MySmartQuit()
+    if &diff || !len(bufname('%'))
+      xa!
+    else
+      wq!
+    endif
+  endfunc
+  echo
+endif
+let g:MySmartQuitDefined = 1
+nnoremap <leader>q :call MySmartQuit()<CR>
+
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
+
+" Splits / File Explorer
+nnoremap <Leader>j  :set splitbelow<CR> :sp<CR> :exec ":e ".expand("%:h")<CR>
+nnoremap <Leader>k  :set splitbelow &<CR> :sp<CR> :exec ":e ".expand("%:h")<CR>
+nnoremap <Leader>l  :set splitright<CR> :vsp<CR> :exec ":e ".expand("%:h")<CR>
+nnoremap <Leader>h  :set splitright&<CR> :vsp<CR> :exec ":e ".expand("%:h")<CR>
+
+nnoremap <Leader>e <C-^> "Explore Mode
+
+nnoremap <Leader>= <C-w>= "Resize all windows

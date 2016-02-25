@@ -1,0 +1,8 @@
+
+
+ln -s "$HOME/dotfiles/vim/vimrc.symlink" "$HOME/.vimrc"
+./vim/install.sh
+
+ln -s "$HOME/dotfiles/bash/bash_profile.symlink" "$HOME/.bash_profile"
+
+ln -s "$HOME/dotfiles/tmux/tmux.conf.symlink" "$HOME/.tmux.conf"
