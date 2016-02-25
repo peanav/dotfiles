@@ -22,6 +22,7 @@ echo 'Setting up ruby'
 ./ruby/install.sh
 
 echo 'Installing Applications'
+brew tap caskroom/cask
 
 echo 'Installing iterm'
 #brew cask install iterm2-beta
