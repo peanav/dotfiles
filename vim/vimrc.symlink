@@ -41,12 +41,13 @@ filetype plugin indent on
 
 set t_Co=256
 syntax enable
+set background=dark
 colorscheme zenburn
 
 " Set the General UI Colors/Look
 set backupdir=/tmp directory=/tmp undodir=/tmp
 set fillchars+=vert:\ 
-hi VertSplit guifg=#111111 guibg=#111111 gui=none
+" hi VertSplit guifg=#111111 guibg=#111111 gui=none
 
 " Set the leader to space
 let mapleader=" "
@@ -94,6 +95,7 @@ syntax enable
 set mouse=a " Enable mouse support for pussy mode
 set cf  " Enable error files & error jumping.
 set clipboard+=unnamed  " Yanks go on clipboard instead.
+set paste
 set history=256  " Number of things to remember in history.
 set autowrite  " Writes on make/shell commands
 set ruler  " Ruler on
