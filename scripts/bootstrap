@@ -1,3 +1,8 @@
+echo 'Setting up Mac dev envrioment'
+xcode-select --install
+brew install openssl libyaml libffi
+brew tap homebrew/dupes && brew install apple-gcc42
+
 echo 'Setting up Git'
 ln -s "$HOME/dotfiles/git/gitignore.symlink" "$HOME/.gitignore"
 ln -s "$HOME/dotfiles/git/gitconfig.symlink" "$HOME/.gitconfig"
@@ -10,9 +15,11 @@ ln -s "$HOME/dotfiles/tmux/tmux.conf.symlink" "$HOME/.tmux.conf"
 ./tmux/install.sh
 
 echo 'Setting up Vim'
-brew install vim --override-system-vi
 ln -s "$HOME/dotfiles/vim/vimrc.symlink" "$HOME/.vimrc"
 ./vim/install.sh
+
+echo 'Setting up ruby'
+./ruby/install.sh
 
 echo 'Installing Applications'
 
