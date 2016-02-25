@@ -1,8 +1,34 @@
+echo 'Installing Brew'
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew tap caskroom/cask
 
+echo 'Setting up Git'
+brew install git
 
+echo 'Setting up bash'
+ln -s "$HOME/dotfiles/bash/bash_profile.symlink" "$HOME/.bash_profile"
+
+echo 'Setting up tmux'
+ln -s "$HOME/dotfiles/tmux/tmux.conf.symlink" "$HOME/.tmux.conf"
+./tmux/install.sh
+
+echo 'Setting up Vim'
+brew install vim --override-system-vi
 ln -s "$HOME/dotfiles/vim/vimrc.symlink" "$HOME/.vimrc"
 ./vim/install.sh
 
-ln -s "$HOME/dotfiles/bash/bash_profile.symlink" "$HOME/.bash_profile"
+echo 'Installing Applications'
 
-ln -s "$HOME/dotfiles/tmux/tmux.conf.symlink" "$HOME/.tmux.conf"
+echo 'Installing iterm'
+#brew cask install iterm2-beta
+
+echo 'Installing Atom'
+
+echo 'Chrome'
+#brew cask install google-chrome
+
+echo 'Firefox'
+#brew cask install firefox
+
+echo 'Sketch'
+#brew cask install sketch

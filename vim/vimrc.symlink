@@ -22,7 +22,6 @@ Plugin 'juvenn/mustache.vim.git',
 Plugin 'tobym/vim-play.git',
 Plugin 'vim-scripts/python.vim--Vasiliev.git'
 Plugin 'jelera/vim-javascript-syntax.git'
-Plugin 'mattn/zencoding-vim.git'
 Plugin 'tpope/vim-fugitive.git'
 Plugin 'tpope/vim-surround.git'
 Plugin 'vim-scripts/ZoomWin'
