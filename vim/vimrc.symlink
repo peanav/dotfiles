@@ -8,58 +8,58 @@ call vundle#begin()
 " required!
 Plugin 'VundleVim/Vundle.vim'
 
-" original repos on github
-Plugin 'tpope/vim-markdown.git',
-"Plugin 'tsaleh/vim-align.git',
-Plugin 'vim-ruby/vim-ruby.git',
-"Plugin 'mileszs/ack.vim.git',
-Plugin 'scrooloose/nerdcommenter.git',
-Plugin 'kchmck/vim-coffee-script.git',
-Plugin 'kien/ctrlp.vim.git',
-Plugin 'groenewege/vim-less.git',
-Plugin 'slim-template/vim-slim.git',
-Plugin 'juvenn/mustache.vim.git',
-Plugin 'tobym/vim-play.git',
-Plugin 'vim-scripts/python.vim--Vasiliev.git'
-Plugin 'jelera/vim-javascript-syntax.git'
+" Color schemes
+Plugin 'flazz/vim-colorschemes'
+
+" All the Tim Pope stuff
 Plugin 'tpope/vim-fugitive.git'
 Plugin 'tpope/vim-surround.git'
-Plugin 'vim-scripts/ZoomWin'
-Plugin 'rking/ag.vim.git'
-Plugin 'mxw/vim-jsx'
-Plugin 'pangloss/vim-javascript'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'chriskempson/base16-vim'
+Plugin 'tpope/vim-markdown.git'
 Plugin 'tpope/vim-vinegar.git'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'jscappini/material.vim'
 Plugin 'tpope/vim-obsession.git'
+
+" For Tabs/Comments/Searching
+Plugin 'gcmt/taboo.vim.git'
+Plugin 'scrooloose/nerdcommenter.git'
+Plugin 'mileszs/ack.vim.git'
+Plugin 'kien/ctrlp.vim.git'
+
+" Syntax
+Plugin 'jelera/vim-javascript-syntax'
 
 call vundle#end()
 
+" look up filetypes
 filetype plugin indent on
 
 set t_Co=256
 syntax enable
 set background=dark
-colorscheme zenburn
+colorscheme Tomorrow-Night
 
-" Set the General UI Colors/Look
+" Send more characters for redraws
+set ttyfast
+set lazyredraw
+set synmaxcol=128
+syntax sync minlines=256
+
+" Store swap files somwhere else
 set backupdir=/tmp directory=/tmp undodir=/tmp
-set fillchars+=vert:\ 
-" hi VertSplit guifg=#111111 guibg=#111111 gui=none
 
 " Set the leader to space
 let mapleader=" "
 
 " Tab Movement
+nnoremap tt :TabooOpen<Space>
+nnoremap tr :TabooRename<Space>
 nnoremap th :tabfirst<CR>
 nnoremap tj :tabprev<CR>
 nnoremap tk :tabnext<CR>
 nnoremap tl :tablast<CR>
-nnoremap tt :tabedit<Space>
 nnoremap tn :tabnext<CR>
-nnoremap tm :tabm<Space>
+
+" Save tabs in session
+set sessionoptions+=tabpages,globals
 
 " Buffer Movement
 nnoremap <C-h> <C-w>h
@@ -78,6 +78,12 @@ nnoremap <Leader>q :q<CR> " Fast Quit
 nnoremap <leader><leader> :w <CR> " Fast Write
 nnoremap <leader>s :call <SID>fastSource()<CR><CR> " Fast Source
 
+
+nnoremap <Leader>rt :!ctags --extra=+f -R *<CR><CR>
+nnoremap <Leader>m :make<CR><CR><CR>:cw<CR>
+nnoremap <Leader>v :vertical resize +10<CR>
+nnoremap <Leader>r :resize +10<CR>
+
 if !exists('*<SID>fastSource')
   func! <SID>fastSource()
     silent :source ~/.vimrc
@@ -85,17 +91,8 @@ if !exists('*<SID>fastSource')
   endfunc
 endif
 
-nnoremap <Leader>rt :!ctags --extra=+f -R *<CR><CR>
-nnoremap <Leader>m :make<CR><CR><CR>:cw<CR>
-nnoremap <Leader>v :vertical resize +10<CR>
-nnoremap <Leader>r :resize +10<CR>
-
-syntax enable
-
-set mouse=a " Enable mouse support for pussy mode
 set cf  " Enable error files & error jumping.
 set clipboard+=unnamed  " Yanks go on clipboard instead.
-set paste
 set history=256  " Number of things to remember in history.
 set autowrite  " Writes on make/shell commands
 set ruler  " Ruler on
@@ -103,8 +100,8 @@ set nu  " Line numbers on
 set nowrap  " Line wrapping off
 set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
 set encoding=utf-8
-"  
-"  " Formatting (some of these are for coding in C and C++)
+
+" Formatting
 set ts=2  " Tabs are 2 spaces
 set bs=2  " Backspace over everything in insert mode
 set shiftwidth=2  " Tabs under smart indent
@@ -163,29 +160,27 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20'
 
-"Javascript Lib Syntax
-"let g:used_javascript_libs = 'underscore,angular,jquery'
-
 " Open netrw if editing a directory
 autocmd vimenter * if !argc() | :e. | endif
 
-
-" Spell Check
-nnoremap <silent> <F4> :set spell! <CR>
-set spelllang=en_us nospell
-
+"Diff changes in git
 nnoremap <leader>df :!git difftool <CR><CR>
 
-highlight DiffAdd ctermbg=8
-highlight DiffDelete ctermbg=8 ctermfg=1
-highlight DiffChange ctermbg=8 cterm=none
-highlight DiffText ctermbg=12 ctermfg=0 cterm=none
-highlight LineNr ctermfg=8 ctermbg=0
+" Set the General UI Colors/Look
+set fillchars+=vert:\ 
+hi Normal ctermbg=NONE
+hi DiffAdd ctermbg=8
+hi DiffDelete ctermbg=8 ctermfg=1
+hi DiffChange ctermbg=8 cterm=none
+hi DiffText ctermbg=12 ctermfg=0 cterm=none
+hi LineNr ctermfg=8 ctermbg=236
+hi VertSlplit ctermfg=8 ctermbg=236
 
 
-" No more .swp file warnings!
-augroup NoSimultaneousEdits
+
+augroup vimrc_autocmd
   autocmd!
+  " No more .swp file warnings!
   autocmd  SwapExists * :let v:swapchoice = 'e'
 augroup END
 
@@ -206,19 +201,21 @@ let g:MySmartQuitDefined = 1
 nnoremap <leader>q :call MySmartQuit()<CR>
 
 if executable('ag')
-  " Use Ag over Grep
+  " Use Ag over Grep or Ack
   set grepprg=ag\ --nogroup\ --nocolor
+  let g:ackprg = 'ag --vimgrep'
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 
 " Splits / File Explorer
-nnoremap <Leader>j  :set splitbelow<CR> :sp<CR> :exec ":e ".expand("%:h")<CR>
-nnoremap <Leader>k  :set splitbelow &<CR> :sp<CR> :exec ":e ".expand("%:h")<CR>
-nnoremap <Leader>l  :set splitright<CR> :vsp<CR> :exec ":e ".expand("%:h")<CR>
-nnoremap <Leader>h  :set splitright&<CR> :vsp<CR> :exec ":e ".expand("%:h")<CR>
+nnoremap <Leader>j  :set splitbelow<CR> :sp<CR> :exec ":e ".expand("%:p:h")<CR>
+nnoremap <Leader>k  :set splitbelow &<CR> :sp<CR> :exec ":e ".expand("%:p:h")<CR>
+nnoremap <Leader>l  :set splitright<CR> :vsp<CR> :exec ":e ".expand("%:p:h")<CR>
+nnoremap <Leader>h  :set splitright&<CR> :vsp<CR> :exec ":e ".expand("%:p:h")<CR>
 
 nnoremap <Leader>e <C-^> "Explore Mode
-
 nnoremap <Leader>= <C-w>= "Resize all windows
+
+inoremap <C-j> <ESC>

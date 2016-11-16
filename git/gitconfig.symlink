@@ -13,7 +13,8 @@
 [color]
   ui = true 
 [push]
-  default = current
+	default = simple
+	default = simple
 [core]
   excludesfile = /Users/paulnavasard/.gitignore
 [diff]

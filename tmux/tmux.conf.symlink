@@ -2,7 +2,8 @@
 set -sg escape-time 0
 
 # Make the colors work right
-set -g default-terminal "screen-256color"
+set -g default-terminal "xterm-256color"
+set -ga terminal-overrides ",xterm-256color:Tc"
 
 # set window and pane index to 1 (0 by default)
 set-option -g base-index 1
@@ -88,6 +89,9 @@ set-window-option -g window-status-current-bg "#333333"
 
 # Clear
 bind-key -n M-c send-keys -t "$pane" "clear" Enter
+
+# Tell tmux to use the system clipboard
+set-option -g default-command "reattach-to-user-namespace -l bash"
 
 # Plugins
 set -g @plugin 'tmux-plugins/tpm'
