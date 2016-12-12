@@ -12,3 +12,4 @@ domo-bits.js
 *.min.css.map
 cdn
 javascripts-built
+.happypack

@@ -208,6 +208,8 @@ if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
 
 " Splits / File Explorer
 nnoremap <Leader>j  :set splitbelow<CR> :sp<CR> :exec ":e ".expand("%:p:h")<CR>
