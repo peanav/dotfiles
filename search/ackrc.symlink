@@ -1,1 +1,1 @@
---ignore-dir=javascripts-built
+--ignore-dir={javascripts-built,tmp,.happypack,logs,cdn}

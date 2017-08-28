@@ -84,6 +84,9 @@ nnoremap <Leader>m :make<CR><CR><CR>:cw<CR>
 nnoremap <Leader>v :vertical resize +10<CR>
 nnoremap <Leader>r :resize +10<CR>
 
+
+nnoremap <C-q> :w<CR>
+
 if !exists('*<SID>fastSource')
   func! <SID>fastSource()
     silent :source ~/.vimrc
@@ -162,6 +165,7 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20'
 
 " Open netrw if editing a directory
 autocmd vimenter * if !argc() | :e. | endif
+let g:netrw_sort_options = "i"
 
 "Diff changes in git
 nnoremap <leader>df :!git difftool <CR><CR>
@@ -201,11 +205,11 @@ let g:MySmartQuitDefined = 1
 nnoremap <leader>q :call MySmartQuit()<CR>
 
 if executable('ag')
-  " Use Ag over Grep or Ack
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ackprg = 'ag --vimgrep'
+  "" Use Ag over Grep or Ack
+  "set grepprg=ag\ --nogroup\ --nocolor
+  "let g:ackprg = 'ag --vimgrep'
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  "" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 cnoreabbrev Ack Ack!
